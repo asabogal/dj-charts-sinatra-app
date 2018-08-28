@@ -2,6 +2,10 @@ class Record < ActiveRecord::Base
   belongs_to :chart
   belongs_to :user
 
+  validates :title, presence: true
+  validates :artist, presence: true
+  validates :label, presence: true
+
   def slug
     self.title.gsub(" ","-").downcase
   end

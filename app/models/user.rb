@@ -1,7 +1,13 @@
 class User < ActiveRecord::Base
   has_secure_password
+
   has_many :charts
-  has_many :records, through: :charts, source: :records 
+  has_many :records, through: :charts, source: :records
+
+  validates :username, presence: true
+  validates :email, presence: true
+  validates :password, presence: true
+
 
   def slug
     self.name.gsub(" ","-").downcase

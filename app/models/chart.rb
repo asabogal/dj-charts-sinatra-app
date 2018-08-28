@@ -1,8 +1,10 @@
 class Chart < ActiveRecord::Base
   belongs_to :user
   has_many :records
-  
-  def date
+
+  validates :name, presence: true
+
+  before_create do
     self.created_on = created_on.to_date
   end
 
