@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect "/users/#{current_user.slug}" #? or id?
+      redirect "/users/#{current_user.id}"
     else
       erb :"/users/new_user"
     end
@@ -15,9 +15,9 @@ class UsersController < ApplicationController
 
   get '/login' do
     if logged_in?
-      redirect "/users/#{current_user.slug}"
+        redirect "/users/#{current_user.slug}"
     else
-      redirect "/signup"
+      erb :"/users/login"
     end
   end
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
     if @user.valid? && !User.find_by(email: params[:email])
       @user.save
-      session[:user_id] = @user.id
+      login_user
       redirect "/users/#{@user.slug}"
     elsif User.find_by(email: params[:email])
       #flash message you already have an account. Please login:
@@ -36,8 +36,23 @@ class UsersController < ApplicationController
     end
   end
 
-  # post login : @user.authenticate(params[:password])
 
+  post '/login' do
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      login_user
+      redirect "/users/#{@user.slug}"
+
+    else
+      #flash message: you don't seem to have an account. Please sign up
+      redirect "/signup"
+    end
+  end
+
+    get '/logout' do
+      session.clear
+      redirect "/login"
+    end
 
 
 #---

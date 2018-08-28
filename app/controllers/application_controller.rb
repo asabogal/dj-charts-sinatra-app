@@ -3,7 +3,7 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
 
   configure do
-    enable :session
+    enable :sessions
     set :session_secret, "recordcharts"
     set :public_folder, 'public'
     set :views, 'app/views'
@@ -18,6 +18,10 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
+
+    def login_user
+      session[:user_id] = self.id
+    end
 
     def logged_in?
       !!session[:user_id]
