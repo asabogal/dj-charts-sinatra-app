@@ -19,8 +19,12 @@ class ApplicationController < Sinatra::Base
 
   helpers do
 
-    def login_user
-      session[:user_id] = self.id
+    def login!
+      session[:user_id] = User.self.id
+    end
+
+    def logout!
+      session.clear
     end
 
     def logged_in?

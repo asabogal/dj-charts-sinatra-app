@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
     if @user.valid? && !User.find_by(email: params[:email])
       @user.save
-      login_user
+      login!
       redirect "/users/#{@user.slug}"
     elsif User.find_by(email: params[:email])
       #flash message you already have an account. Please login:
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   post '/login' do
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
-      login_user
+      login!
       redirect "/users/#{@user.slug}"
 
     else
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
     get '/logout' do
-      session.clear
+      logout!
       redirect "/login"
     end
 
