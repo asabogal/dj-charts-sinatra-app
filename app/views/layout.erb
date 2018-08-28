@@ -14,12 +14,30 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+    
+    <nav>
+     <% if logged_in? %>
+
+       <a href="/charts/new"> Create Chart </a>
+       <a href="/logout"> Log Out </a>
+       <p>Welcome, <%=current_user.username %></p>
+
+     <% else %>
+       <a href="/signup">Sign Up</a>
+       <a href="/login"> Sign In </a>
+     <%end %>
+
+   </nav>
+
+
+
     <div class="wrapper">
 
         <%= yield %>
 
+        <br></br>
       <footer class="branding">
-        <small>&copy; 2018 <strong>DjChartsSinatraApp</strong></small>
+        <small>&copy; 2018 <strong>DJ Charts - Sinatra App</strong></small>
       </footer>
     </div>
 
