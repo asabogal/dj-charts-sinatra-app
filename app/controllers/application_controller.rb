@@ -10,7 +10,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    if logged_in?
+      redirect "/charts/index"
+    else
+      erb :welcome
+    end
   end
 
   helpers do
