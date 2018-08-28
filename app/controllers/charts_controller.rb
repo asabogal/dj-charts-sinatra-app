@@ -1,4 +1,4 @@
-class Charts < ApplicationController
+class ChartsController < ApplicationController
 
 
 #---

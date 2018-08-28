@@ -1,4 +1,4 @@
-class Records < ApplicationController
+class RecordsController < ApplicationController
 
 
 #---
