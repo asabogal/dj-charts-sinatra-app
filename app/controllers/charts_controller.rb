@@ -35,12 +35,47 @@ class ChartsController < ApplicationController
         @chart.update(user_id: current_user.id)
         @record = Record.create(params[:record])
         @record.update(chart_id: @chart.id)
-        @chart.records << @record
+        @record.save
+        # @chart.records << @record
+        @chart.save
         redirect "/charts"
       end
     else
       redirect "/login"
     end
   end
+
+  patch '/charts/:slug' do
+    if logged_in?
+      if params[:chart][:name] == ""
+        flash[:notice] = "Please fill in the Chart Name"
+        redirect "/charts/#{params[:slug]}/edit"
+
+      else
+        @chart = Chart.find_by_slug(params[:slug])
+          if @chart && @chart.user == current_user
+
+            if @chart.update(name: params[:chart][:name])
+                @record = Record.create(params[:record]) unless params[:record].empty?
+                @record.update(chart_id: @chart.id)
+                @record.save
+                # @chart.records << @record
+                @chart.save
+                redirect "/charts/#{@chart.slug}"
+              else
+                #flash message
+                redirect "/charts/#{@chart.slug}/edit"
+              end
+            else
+              #flash message: you don't have access to this page
+              redirect "/charts"
+            end
+          end
+          redirect "/login"
+        end
+      end
+
+
+
 #---
 end
