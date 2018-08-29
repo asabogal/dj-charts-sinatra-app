@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :password, presence: true
 
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+
   def slug
     self.username.gsub(" ","-").downcase
   end
