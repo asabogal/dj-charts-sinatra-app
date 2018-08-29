@@ -1,6 +1,10 @@
 
 <!-- /login -->
 
+<% if flash[:notice] %>
+<h2 class="warning"><%=flash[:notice]%></h2>
+<%end%>
+
 <h1>Welcome back! Please log in to access your profile:</h1>
 
 <form action="/login" method="POST">

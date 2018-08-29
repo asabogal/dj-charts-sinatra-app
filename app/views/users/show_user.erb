@@ -1,10 +1,9 @@
-SHOWS USER INFO
-USE GET BUTTON TO RETURN TO USER INDEX
 <!-- /users/:id or users/:slug -->
 
-LIST USER DETAILS:
-  USERNAME
-  EMAIL
+<h1>This is <%=@user.username%>'s Page:</h1>
 
-LIST ALL USER Charts
-  USER.CHARTS.ALL
+<h2>List user charts here:</h2>
+
+<%if logged_in? && authorized_user?%>
+<h3>Can Edit Page when logged in => create edit button</h3>
+<%end%>
