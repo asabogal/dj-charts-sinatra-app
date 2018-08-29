@@ -55,9 +55,14 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do
-    logout!
-    flash[:notice] = "You've successfully logged out!"
-    redirect "/"
+    if !logged_in?
+      flash[:notice] = "You are not logged in. Please login."
+      redirect "/login"
+    else
+      logout!
+      flash[:notice] = "You've successfully logged out!"
+      redirect "/"
+    end
   end
 
 
