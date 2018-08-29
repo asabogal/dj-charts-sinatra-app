@@ -5,19 +5,20 @@ class ChartsController < ApplicationController
     erb :"/charts/index"
   end
 
-  get '/charts/:slug' do
-    @chart = Chart.find_by_slug(params[:slug])
-    erb :"/charts/show_chart"
-  end
-
   get '/charts/new' do
     if logged_in?
       erb :"/charts/new_chart"
     else
-    #add flash message?
+      # flash[:notice] = "You must be logged in to crate a new chart"
       redirect "/login"
     end
   end
+
+  get '/charts/:slug' do
+    @chart = Chart.find_by_slug(params[:slug])
+    erb :"charts/show_chart"
+  end
+
 
   post '/charts' do
     if logged_in?
