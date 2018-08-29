@@ -4,7 +4,8 @@ USE GET BUTTONS TO ADD NEW CHART AND REDIRECT TO NEW_CHART PAGE
 
 <div class="wrapper">
   <%@charts.each do |chart|%>
-  <h2>User <%=chart.user.username%>'s <%=chart.name%> Chart: <p> date created: <%=chart.created_on%></p></h2>
+  <a href="/charts/<%=chart.slug%>"> <h3><%=chart.name%></h3></a>
+  <p>by <%=chart.user.username%> _ date created: <%=chart.created_on%></p>
   <%end%>
 
 </div>
