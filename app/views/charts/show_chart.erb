@@ -1,6 +1,5 @@
-SHOWS A  SPECIFIC CHART
-MUST BE LOGGED IN TO VIEW
-USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
+
+
 <!-- /charts/:id or /charts/:slug -->
 
 <h1><%=@chart.name%></h1>
@@ -40,5 +39,12 @@ USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
 <%if logged_in? && @chart.user_id == current_user.id%>
 <form action="/charts/<%=@chart.slug%>/edit" method="get">
 <input class="big_button" type="submit" value="Edit Chart Details">
+</form>
+<%end%>
+
+<%if logged_in? && @chart.user_id == current_user.id%>
+<form action="/charts/<%=@chart.slug%>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+  <input class="big_button" type="submit" value="Delete Chart">
 </form>
 <%end%>
