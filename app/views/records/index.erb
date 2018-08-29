@@ -1,1 +1,7 @@
 SHOWS A LIST OF ALL RECORDS CHARTED
+
+<h1>This is the Records Collection:</h1>
+
+<%@records.each do |record|%>
+  <h2><%=record.artist%> - <%=record.title%></h2>
+<%end%>
