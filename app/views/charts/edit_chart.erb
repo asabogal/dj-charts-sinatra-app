@@ -4,45 +4,18 @@ MUST BE LOGGED IN TO VIEW
 
 SHOULD BE ABLE TO CHANGE CHART NAME AND/OR ADD/REMOVE A RECORD
 
+<% if flash[:notice] %>
+<h2 class="warning"><%=flash[:notice]%></h2>
+<%end%>
+
 <h1><%=current_user.username%></h1>
 <h2>EDIT: <%=@chart.name%></h2>
 
-<%@chart.records.each_with_index do |record, i|%>
 
-    <table id="table">
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Artist</th>
-        <th>Label</th>
-        <% if logged_in? && @chart.user_id == current_user.id%>
-        <th>Edit</th>
-        <th>Delete</th>
-        <%end%>
-      </tr>
-      <tr>
-        <td><%=i+1%></td>
-        <td><%= record.title %></td>
-        <td><%= record.artist %></td>
-        <td><%= record.label %></td>
-        <% if logged_in? && @chart.user_id == current_user.id%>
-        <td> <form class="" action="/records/<%=record.id%>/edit" method="GET"> <!-- change to record.title /slug-->
-          <input type="submit" value="Edit Record">
-        </form>
-        </td>
-        <td> <form class="" action="<%record.delete%>" method="get">
-          <input type="submit" value="Delete Record">
-        </form>
-        </td>
-        <%end%>
-        </tr>
-      <table>
-    <%end%>
 
 
 <form action="/charts/<%=@chart.slug%>" method="POST">
 <input type="hidden" name="_method" value="PATCH">
-
 
   Chart Name: <input type="text" name="chart[name]" value="">
   <input type="hidden" name="chart[created_on]" value="">
