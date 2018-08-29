@@ -7,8 +7,6 @@ USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
 <h2>by <%=@chart.user.username%> </h2>
 
 <%@chart.records.each_with_index do |record, i|%>
-  <div class="wrapper">
-
 
     <table id="table">
       <tr>
@@ -39,9 +37,11 @@ USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
         </tr>
       <table>
     <%end%>
-  </div>
-    <%if logged_in? && @chart.user_id == current_user.id%>
-    <form action="/charts/edit" method="get">
-      <input class="big_button" type="submit" value="Edit Chart Details">
-    </form>
-    <%end%>
+
+
+
+<%if logged_in? && @chart.user_id == current_user.id%>
+<form action="/charts/<%=@chart.slug%>/edit" method="get">
+<input class="big_button" type="submit" value="Edit Chart Details">
+</form>
+<%end%>
