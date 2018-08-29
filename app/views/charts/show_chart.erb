@@ -16,6 +16,7 @@ USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
     <th>Label</th>
     <% if logged_in? && @chart.user_id == current_user.id%>
     <th>Edit</th>
+    <th>Delete</th>
     <%end%>
   </tr>
   <tr>
@@ -24,8 +25,12 @@ USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
     <td><%= record.artist %></td>
     <td><%= record.label %></td>
     <% if logged_in? && @chart.user_id == current_user.id%>
-    <td> <form class="" action="/records/<%=record.id%>/edit" method="GET">
+    <td> <form class="" action="/records/<%=record.id%>/edit" method="GET"> <!-- change to record.title /slug-->
       <input type="submit" value="Edit Record">
+    </form>
+    </td>
+    <td> <form class="" action="/records/delete" method="POST"> <!-- or record.delete ? .destroy ?-->
+      <input type="submit" value="Delete Record">
     </form>
     </td>
     <%end%>
