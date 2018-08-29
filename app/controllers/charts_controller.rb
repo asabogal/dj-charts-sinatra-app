@@ -5,6 +5,11 @@ class ChartsController < ApplicationController
     erb :"/charts/index"
   end
 
+  get '/charts/:slug' do
+    @chart = Chart.find_by_slug(params[:slug])
+    erb :"/charts/show_chart"
+  end
+
   get '/charts/new' do
     if logged_in?
       erb :"/charts/new_chart"
