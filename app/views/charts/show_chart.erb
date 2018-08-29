@@ -1,4 +1,37 @@
 SHOWS A  SPECIFIC CHART
 MUST BE LOGGED IN TO VIEW
 USE GET BUTTONS TO CREATE NEW CHART / EDIT CHART / DELETE CHART
-<!-- /charts/:id/edit or /charts/:slug/edit -->
+<!-- /charts/:id or /charts/:slug -->
+
+<h1><%=@chart.name%></h1>
+<h2>by <%=@chart.user.username%> </h2>
+
+<%@chart.records.each_with_index do |record, i|%>
+
+<table id="table">
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Label</th>
+    <% if logged_in? && @chart.user_id == current_user.id%>
+    <th>Edit</th>
+    <%end%>
+  </tr>
+  <tr>
+    <td><%=i+1%></td>
+    <td><%= record.title %></td>
+    <td><%= record.artist %></td>
+    <td><%= record.label %></td>
+    <% if logged_in? && @chart.user_id == current_user.id%>
+    <td> <form class="" action="/records/<%=record.id%>/edit" method="GET">
+      <input type="submit" value="Edit Record">
+    </form>
+    </td>
+    <%end%>
+    </tr>
+  <table>
+
+
+
+<%end%>
