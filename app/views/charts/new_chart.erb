@@ -2,6 +2,9 @@ CREATES A NEW CHART FOR A SPECIFIC USER
 MUST BE LOGGED IN TO VIEW
 <!-- /charts/new -->
 
+<% if flash[:notice] %>
+<h2 class="warning"><%=flash[:notice]%></h2>
+<%end%>
 
 <h1>Create New Chart:</h1>
 
@@ -10,12 +13,12 @@ MUST BE LOGGED IN TO VIEW
   Chart Name: <input type="text" name="chart[name]" value="">
   <input type="hidden" name="chart[created_on]" value="">
   <br></br>
-  <h2>Add Record:</h2>
+  <h2>Add Record: </h2>
   Record Title: <input type="text" name="record[title]" value="">
   <br></br>
-  Record Artist:<input type="text" name="record[artist]" value="">
+  Record Artist: <input type="text" name="record[artist]" value="">
   <br></br>
-  Record Label:<input type="text" name="record[label]" value="">
+  Record Label: <input type="text" name="record[label]" value="">
   <br></br>
   <input type="submit" value="Create Chart">
 
