@@ -75,6 +75,12 @@ class ChartsController < ApplicationController
         end
       end
 
+    delete '/charts/:slug/delete' do
+      @chart = Chart.find_by_slug(params[:slug])
+      @chart.delete
+      flash[:notice] = "SUccessfully deleted Chart"
+      redirect "/charts"
+    end
 
 
 #---
