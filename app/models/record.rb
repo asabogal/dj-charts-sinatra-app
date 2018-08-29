@@ -6,6 +6,8 @@ class Record < ActiveRecord::Base
   validates :artist, presence: true
   validates :label, presence: true
 
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
   def slug
     self.title.gsub(" ","-").downcase
   end
