@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
 
+  get '/users' do
+    @users = User.all
+    erb :"/users/index"
+  end
+
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :"/users/show_user"
@@ -7,7 +12,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect "/users/#{current_user.id}"
+      redirect "/users/#{current_user.slug}"
     else
       erb :"/users/new_user"
     end
@@ -28,11 +33,12 @@ class UsersController < ApplicationController
       login!
       redirect "/users/#{@user.slug}"
     elsif User.find_by(email: params[:email])
-      #flash message you already have an account. Please login:
+      flash[:notice] = "You already have an account. Please log in to access your profile."
       redirect "/login"
     else
-      #do Flash Message: please try again!
+      flash[:notice] = "Please fill in all the filds."
       redirect "/signup"
+
     end
   end
 
@@ -42,17 +48,17 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       login!
       redirect "/users/#{@user.slug}"
-
     else
-      #flash message: you don't seem to have an account. Please sign up
+      flash[:notice] = "You don't seem to have an account. Please sign up"
       redirect "/signup"
     end
   end
 
-    get '/logout' do
-      logout!
-      redirect "/login"
-    end
+  get '/logout' do
+    logout!
+    flash[:notice] = "You've successfully logged out!"
+    redirect "/"
+  end
 
 
 #---
