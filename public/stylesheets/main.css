@@ -112,6 +112,11 @@
     font-size: 18px;
     line-height: 24px;
   }
+
+  h3 {
+    font-size: 18px;
+    line-height: 36px;
+  }
 }
 
 /* Button Styles */
@@ -130,4 +135,25 @@
 /* Rack Flash */
 .warning {
   color: red;
+}
+
+/* --- Table Styles --- */
+#table {
+ margin: 0 0 20px;
+ border: solid;
+}
+
+#table th, td {
+ padding: 10px;
+ border-right: .5px solid #eee;
+ border-bottom: .5px solid #eee;
+}
+
+#table tr:nth-child(odd) {
+ background: #eee;
+}
+
+#table th {
+ background: #777;
+ color: white;
 }
