@@ -14,6 +14,11 @@ class ChartsController < ApplicationController
     end
   end
 
+  get '/charts/:slug/edit' do
+    @chart = Chart.find_by_slug(params[:slug])
+    erb :"/charts/edit_chart"
+  end
+
   get '/charts/:slug' do
     @chart = Chart.find_by_slug(params[:slug])
     erb :"charts/show_chart"
