@@ -22,12 +22,17 @@
 
        <% if logged_in? %>
 
+       <p> <strong>Logged in as: <%=current_user.username %></strong></p>
+         <a href="/users/<%=current_user.slug%>"> Home </a>
 
-        
          <span class="navigationSpace"/>
          <a href="/charts"> View All Charts </a>
          <span class="navigationSpace"/>
          <a href="/charts/new"> Create Chart </a>
+         <span class="navigationSpace"/>
+         <a href="/records"> Record Index </a>
+         <span class="navigationSpace"/>
+         <a href="/users"> User Index </a>
          <span class="navigationSpace"/>
          <a href="/logout"> Log Out </a>
 
