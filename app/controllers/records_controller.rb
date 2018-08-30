@@ -33,5 +33,12 @@ class RecordsController < ApplicationController
       end
     end
 
+    delete '/records/:id/delete' do
+      @record = Record.find_by_id(params[:id])
+      @chart = Chart.find_by_id(@record.chart_id)
+      @record.delete
+      redirect "/charts/#{@chart.slug}"
+    end
+
 #---
 end
