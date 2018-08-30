@@ -1,8 +1,4 @@
 
-<% if flash[:notice] %>
-<h2 class="warning"><%=flash[:notice]%></h2>
-<%end%>
-
 <h2>EDIT: <%=@record.artist%> - <%=@record.title%> </h2>
 
 <form action="/records/<%=@record.id%>" method="POST">

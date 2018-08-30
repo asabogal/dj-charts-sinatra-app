@@ -47,6 +47,10 @@
 
      </nav>
 
+     <% if flash[:notice] %>
+     <h2 class="warning"><%=flash[:notice]%></h2>
+     <%end%>
+
         <%= yield %>
 
         <br></br>
