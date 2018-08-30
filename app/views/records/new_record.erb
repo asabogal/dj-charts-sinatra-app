@@ -1,0 +1,16 @@
+
+<h1>Creates Record:</h1>
+
+<form action="/records" method="POST">
+
+
+  Record Title: <input type="text" name="title" value="">
+  <br></br>
+  Record Artist: <input type="text" name="artist" value="">
+  <br></br>
+  Record Label: <input type="text" name="label" value="">
+  <br></br>
+  <input type="hidden" name="chartid" value="<%=@chart.id%>">
+  <input type="submit" value="Create Record">
+
+</form>
