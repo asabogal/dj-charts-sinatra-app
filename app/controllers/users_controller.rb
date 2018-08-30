@@ -5,19 +5,28 @@ class UsersController < ApplicationController
     erb :"/users/index"
   end
 
+  get '/users/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    if @user
+    erb :"/users/show_user"
+    else
+      flash[:notice] = "Error: No such user!"
+      redirect "/users"
+    end
+  end
+
   get '/users/:slug/charts' do
-    if logged_in? && current_user
-      @user = User.find_by_slug(params[:slug])
-      erb :"/users/charts"
+    @user = User.find_by_slug(params[:slug])
+    if logged_in?
+      if authorized_user?
+        erb :"/users/charts"
+      else
+        redirect "/users/#{@user.slug}"
+      end
     else
       flash[:notice] = "Please log in to do that"
       redirect "/login"
     end
-  end
-
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :"/users/show_user"
   end
 
 

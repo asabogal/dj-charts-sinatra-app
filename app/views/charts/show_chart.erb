@@ -25,12 +25,12 @@
         <td><%= record.artist %></td>
         <td><%= record.label %></td>
         <% if logged_in? && @chart.user_id == current_user.id%>
-        <td> <form action="/records/<%=record.id%>/edit" method="GET"> <!-- change to record.title /slug-->
+        <td> <form action="/records/<%=record.id%>/edit" method="GET">
           <input type="submit" value="Edit Record">
         </form>
         </td>
         <td> <form action="/records/<%=record.id%>/delete" method="POST">
-          <input id="hidden" type="hidden" name="_method" value="delete"> <!-- change to record.title /slug-->
+          <input id="hidden" type="hidden" name="_method" value="delete">
           <input type="submit" value="Delete Record">
         </form>
         </td>
@@ -49,7 +49,7 @@
 
 <%if logged_in? && @chart.user_id == current_user.id%>
 <form action="/records/new" method="get">
-  <input type="hidden" name="chart_id" value="<%=@chart.id%>"> <!--double check this -->
+  <input type="hidden" name="chartid" value="<%=@chart.id%>"> <!--double check this -->
   <input class="big_button" type="submit" value="Add Record">
 </form>
 <%end%>

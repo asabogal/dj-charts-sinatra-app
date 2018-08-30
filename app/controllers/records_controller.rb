@@ -11,10 +11,47 @@ class RecordsController < ApplicationController
       end
     end
 
+    get '/records/new' do
+      if logged_in? && current_user
+        if !!params
+          @chart = Chart.find_by_id(params[:chartid])
+          erb :"/records/new_record"
+        else
+          #flash messag = "You can only add tracks your chart"
+          redirect "/charts"
+        end
+      else
+        # flash[:notice] = "You must be logged in to crate a new chart"
+        redirect "/login"
+      end
+    end
+
     get '/records' do
         @records = Record.all
         erb :"/records/index"
     end
+
+  post '/records' do
+    if logged_in? && current_user
+        if params[:title] == "" || params[:artist] == "" || params[:label] == ""
+          flash[:notice] = "Please fill in all fields"
+          redirect "/records/new"
+        elsif params.include?(:chartid)
+          @chart = Chart.find_by_id(params[:chartid])
+          @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label])
+          @record.update(chart_id: @chart.id)
+          @record.save
+          redirect "/charts/#{@chart.slug}"
+        else
+          @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label])
+          redirect "/records"
+        end
+    else
+      #flash message
+      redirect "/login"
+    end
+  end
+
 
     patch '/records/:id' do
       if logged_in? && current_user

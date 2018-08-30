@@ -1,9 +1,6 @@
-SHOWS USER SPECIFIC CHARTS
-MUST BE LOGGED IN
-<!-- /users/:id/charts or /users/:slug/charts -->
-USE GET BUTTON TO REDIRECT TO CREATE NEW CHART
 
-<%@user.charts.each do |chart|%>
+
+<%current_user.charts.each do |chart|%>
 
 <a href="/charts/<%=chart.slug%>"> <h3><%=chart.name%></h3></a>
 
