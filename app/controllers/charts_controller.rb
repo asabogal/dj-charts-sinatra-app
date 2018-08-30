@@ -9,14 +9,24 @@ class ChartsController < ApplicationController
     if logged_in?
       erb :"/charts/new_chart"
     else
-      # flash[:notice] = "You must be logged in to crate a new chart"
+      flash[:notice] = "Please login to do that!"
       redirect "/login"
     end
   end
 
   get '/charts/:slug/edit' do
-    @chart = Chart.find_by_slug(params[:slug])
-    erb :"/charts/edit_chart"
+    if logged_in? && current_user
+        @chart = Chart.find_by_slug(params[:slug])
+          if @chart.user == current_user
+            erb :"/charts/edit_chart"
+          else
+            flash[:notice] = "You dont have permission to do that"
+            redirect "/charts"
+          end
+    else
+      flash[:notice] = "Please login to do that!"
+      redirect "/login"
+    end
   end
 
   get '/charts/:slug' do
@@ -26,7 +36,7 @@ class ChartsController < ApplicationController
 
 
   post '/charts' do
-    if logged_in?
+    if logged_in? && current_user
       if params[:chart][:name] == "" || params[:record][:title] == "" || params[:record][:artist] == "" || params[:record][:label] == ""
         flash[:notice] = "Please fill in all fields"
         redirect "/charts/new"
@@ -36,9 +46,8 @@ class ChartsController < ApplicationController
         @record = Record.create(params[:record])
         @record.update(chart_id: @chart.id)
         @record.save
-        # @chart.records << @record
         @chart.save
-        redirect "/charts"
+        redirect "/users/#{current_user.slug}/charts"
       end
     else
       redirect "/login"
@@ -50,7 +59,6 @@ class ChartsController < ApplicationController
         if params[:chart][:name] == ""
           flash[:notice] = "Please fill in the Chart Name"
           redirect "/charts/#{params[:slug]}/edit"
-
         else
           @chart = Chart.find_by_slug(params[:slug])
             if @chart && @chart.user == current_user
@@ -59,16 +67,15 @@ class ChartsController < ApplicationController
                   @record = Record.create(params[:record]) unless params[:record].empty?
                   @record.update(chart_id: @chart.id)
                   @record.save
-                  # @chart.records << @record
                   @chart.save
                   redirect "/charts/#{@chart.slug}"
                 else
-                #flash message
+                  flash[:notice] = "Something went wrong, please try again."
                   redirect "/charts/#{@chart.slug}/edit"
                 end
             else
-              #flash message: you don't have access to this page
-              redirect "/charts"
+              flash[:notice] = "You dont have permission to do that"
+              redirect "/users/#{current_user.slug}"
             end
           end
           redirect "/login"
@@ -76,11 +83,20 @@ class ChartsController < ApplicationController
       end
 
     delete '/charts/:slug/delete' do
-      @chart = Chart.find_by_slug(params[:slug])
-      @chart.delete
-      flash[:notice] = "Successfully deleted "
-      #redirect to /users/:slug/charts
-      redirect "/charts"
+      if logged_in?
+        @chart = Chart.find_by_slug(params[:slug])
+        if @chart && @chart.user = current_user
+          @chart.delete
+          flash[:notice] = "Chart successfully deleted"
+          redirect "/users/#{current_user.slug}/charts"
+        else
+          flash[:notice] = "You dont have permission to do that"
+          redirect  "/charts"
+        end
+      else
+        flash[:notice] = "Please login to do that!"
+        redirect "/login"
+      end
     end
 
 
