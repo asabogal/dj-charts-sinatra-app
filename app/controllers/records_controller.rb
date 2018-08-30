@@ -13,7 +13,7 @@ class RecordsController < ApplicationController
 
     get '/records/new' do
       if logged_in? && current_user
-        if !!params
+        if !params.empty?
           @chart = Chart.find_by_id(params[:chartid])
           erb :"/records/new_record"
         else
