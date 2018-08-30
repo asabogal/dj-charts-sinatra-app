@@ -41,20 +41,20 @@
 
 
 
-<%if logged_in? && @chart.user_id == current_user.id%>
+<%if logged_in? && @chart.user == current_user%>
 <form action="/charts/<%=@chart.slug%>/edit" method="get">
 <input class="big_button" type="submit" value="Edit Chart Details">
 </form>
 <%end%>
 
-<%if logged_in? && @chart.user_id == current_user.id%>
+<%if logged_in? && @chart.user == current_user%>
 <form action="/records/new" method="get">
   <input type="hidden" name="chartid" value="<%=@chart.id%>"> <!--double check this -->
   <input class="big_button" type="submit" value="Add Record">
 </form>
 <%end%>
 
-<%if logged_in? && @chart.user_id == current_user.id%>
+<%if logged_in? && @chart.user == current_user%>
 <form action="/charts/<%=@chart.slug%>/delete" method="post">
     <input id="hidden" type="hidden" name="_method" value="delete">
   <input class="big_button" type="submit" value="Delete Chart">
