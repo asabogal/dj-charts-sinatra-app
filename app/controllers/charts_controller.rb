@@ -47,25 +47,25 @@ class ChartsController < ApplicationController
 
   patch '/charts/:slug' do
     if logged_in?
-      if params[:chart][:name] == ""
-        flash[:notice] = "Please fill in the Chart Name"
-        redirect "/charts/#{params[:slug]}/edit"
+        if params[:chart][:name] == ""
+          flash[:notice] = "Please fill in the Chart Name"
+          redirect "/charts/#{params[:slug]}/edit"
 
-      else
-        @chart = Chart.find_by_slug(params[:slug])
-          if @chart && @chart.user == current_user
+        else
+          @chart = Chart.find_by_slug(params[:slug])
+            if @chart && @chart.user == current_user
 
-            if @chart.update(name: params[:chart][:name])
-                @record = Record.create(params[:record]) unless params[:record].empty?
-                @record.update(chart_id: @chart.id)
-                @record.save
-                # @chart.records << @record
-                @chart.save
-                redirect "/charts/#{@chart.slug}"
-              else
+                if @chart.update(name: params[:chart][:name])
+                  @record = Record.create(params[:record]) unless params[:record].empty?
+                  @record.update(chart_id: @chart.id)
+                  @record.save
+                  # @chart.records << @record
+                  @chart.save
+                  redirect "/charts/#{@chart.slug}"
+                else
                 #flash message
-                redirect "/charts/#{@chart.slug}/edit"
-              end
+                  redirect "/charts/#{@chart.slug}/edit"
+                end
             else
               #flash message: you don't have access to this page
               redirect "/charts"
@@ -78,7 +78,8 @@ class ChartsController < ApplicationController
     delete '/charts/:slug/delete' do
       @chart = Chart.find_by_slug(params[:slug])
       @chart.delete
-      flash[:notice] = "SUccessfully deleted Chart"
+      flash[:notice] = "Successfully deleted "
+      #redirect to /users/:slug/charts
       redirect "/charts"
     end
 
