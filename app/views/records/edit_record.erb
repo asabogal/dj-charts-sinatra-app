@@ -1,0 +1,19 @@
+
+<% if flash[:notice] %>
+<h2 class="warning"><%=flash[:notice]%></h2>
+<%end%>
+
+<h2>EDIT: <%=@record.artist%> - <%=@record.title%> </h2>
+
+<form action="/records/<%=@record.id%>" method="POST">
+<input type="hidden" name="_method" value="PATCH">
+
+  Record Title: <input type="text" name="record[title]" value="">
+  <br></br>
+  Record Artist: <input type="text" name="record[artist]" value="">
+  <br></br>
+  Record Label: <input type="text" name="record[label]" value="">
+  <br></br>
+  <input type="submit" value="Edit Record">
+
+</form>
