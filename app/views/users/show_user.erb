@@ -1,9 +1,16 @@
 <!-- /users/:id or users/:slug -->
 
-<h1>This is <%=@user.username%>'s Page:</h1>
-
-<h2>List user charts here:</h2>
-
 <%if logged_in? && authorized_user?%>
-<h3>Can Edit Page when logged in => create edit button</h3>
+  <h1>Welcome Back <%=@user.username%> !</h1>
+  <h2>Here are your charts: </h2>
+<%else%>
+  <h2>These are <%=@user.username%>'s charts: </h2>
+<%end%>
+
+<%@user.charts.each do |chart|%>
+
+<a href="/charts/<%=chart.slug%>"> <h3> <%=chart.name%></h3></a>
+Created on: <h4><%=chart.created_on%></h4>
+
+
 <%end%>
