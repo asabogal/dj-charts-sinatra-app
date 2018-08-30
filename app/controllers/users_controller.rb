@@ -5,10 +5,21 @@ class UsersController < ApplicationController
     erb :"/users/index"
   end
 
+  get '/users/:slug/charts' do
+    if logged_in? && current_user
+      @user = User.find_by_slug(params[:slug])
+      erb :"/users/charts"
+    else
+      flash[:notice] = "Please log in to do that"
+      redirect "/login"
+    end
+  end
+
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :"/users/show_user"
   end
+
 
   get '/signup' do
     if logged_in?
