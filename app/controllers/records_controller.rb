@@ -1,15 +1,20 @@
 class RecordsController < ApplicationController
 
-
-    get '/records/:id/edit' do
-      if logged_in? && current_user
+    get '/records/:id/edit' do #fix authentication!! / must only edit from chart page
+      if logged_in?
         @record = Record.find_by_id(params[:id])
-        erb :"/records/edit_record"
-      else
-        flash[:notice] = "Please log in to do that"
-        redirect "/login"
+        @chart = Chart.find_by_id(@record.chart_id)
+          if @chart.user == current_user
+            erb :"/records/edit_record"
+          else
+            flash[:notice] = "You can only edit records directly from your charts!"
+            redirect "/users/#{current_user.slug}/charts"
+          end
+        else
+          flash[:notice] = "Please log in to do that."
+          redirect "/login"
+        end
       end
-    end
 
     get '/records/new' do
       if logged_in? && current_user
@@ -17,11 +22,11 @@ class RecordsController < ApplicationController
           @chart = Chart.find_by_id(params[:chartid])
           erb :"/records/new_record"
         else
-          #flash messag = "You can only add tracks your chart"
-          redirect "/charts"
+          flash[:notice] = "You can only add records directly from your charts!"
+          redirect "/users/#{current_user.slug}/charts"
         end
       else
-        # flash[:notice] = "You must be logged in to crate a new chart"
+        flash[:notice] = "Please log in to do that."
         redirect "/login"
       end
     end
