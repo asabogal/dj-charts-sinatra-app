@@ -25,8 +25,13 @@
         <td><%= record.artist %></td>
         <td><%= record.label %></td>
         <% if logged_in? && @chart.user_id == current_user.id%>
-        <td> <form class="" action="/records/<%=record.id%>/edit" method="GET"> <!-- change to record.title /slug-->
+        <td> <form action="/records/<%=record.id%>/edit" method="GET"> <!-- change to record.title /slug-->
           <input type="submit" value="Edit Record">
+        </form>
+        </td>
+        <td> <form action="/records/<%=record.id%>/delete" method="POST">
+          <input id="hidden" type="hidden" name="_method" value="delete"> <!-- change to record.title /slug-->
+          <input type="submit" value="Delete Record">
         </form>
         </td>
         <%end%>
