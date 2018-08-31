@@ -52,11 +52,11 @@ class UsersController < ApplicationController
       @user.save
       login!
       redirect "/users/#{@user.slug}"
-    elsif User.find_by(email: params[:email])
+    elsif @user.valid? && User.find_by(email: params[:email])
       flash[:notice] = "You already have an account. Please log in to access your profile."
       redirect "/login"
     else
-      flash[:notice] = "Please fill in all the filds."
+      flash[:notice] = "Please fill in all the required fields correctly."
       redirect "/signup"
 
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
 
   post '/login' do
-    @user = User.find_by(email: params[:email])
+    @user = User.find_by(username: params[:username], email: params[:email])
     if @user && @user.authenticate(params[:password])
       login!
       redirect "/users/#{@user.slug}"
