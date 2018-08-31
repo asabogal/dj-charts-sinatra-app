@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
 
-    get '/records/:id/edit' do #fix authentication!! / must only edit from chart page
+    get '/records/:id/edit' do
       if logged_in?
         @record = Record.find_by_id(params[:id])
         @chart = Chart.find_by_id(@record.chart_id)
@@ -61,9 +61,9 @@ class RecordsController < ApplicationController
     patch '/records/:id' do
       if logged_in? && current_user
         @record = Record.find_by_id(params[:id])
-          if @record.update(title: params[:record][:title], artist: params[:record][:artist], label: params[:record][:label])
+        @chart = Chart.find_by_id(@record.chart_id)
+          if @chart.user == current_user && @record.update(title: params[:record][:title], artist: params[:record][:artist], label: params[:record][:label])
             @record.save
-            @chart = Chart.find_by_id(@record.chart_id)
             redirect "/charts/#{@chart.slug}"
           else
             flash[:notice] = "Please fill in all fields"
