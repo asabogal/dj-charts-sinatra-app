@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       @user.save
       login!
       redirect "/users/#{@user.slug}"
-    elsif @user.valid? && User.find_by(email: params[:email])
+    elsif @user.valid? && User.find_by(username: params[:username], email: params[:email])
       flash[:notice] = "You already have an account. Please log in to access your profile."
       redirect "/login"
     else

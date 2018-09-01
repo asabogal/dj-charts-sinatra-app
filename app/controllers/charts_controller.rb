@@ -85,7 +85,7 @@ class ChartsController < ApplicationController
     delete '/charts/:slug/delete' do
       if logged_in?
         @chart = Chart.find_by_slug(params[:slug])
-        if @chart && @chart.user = current_user
+        if @chart && @chart.user == current_user
           @chart.delete
           flash[:notice] = "Chart successfully deleted"
           redirect "/users/#{current_user.slug}/charts"
