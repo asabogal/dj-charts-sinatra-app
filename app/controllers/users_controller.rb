@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   post '/signup' do
     @user = User.new(params)
-    if @user.valid? && !User.find_by(email: params[:email])
+    if @user.valid? && !User.find_by(username: params[:username], email: params[:email])
       @user.save
       login!
       redirect "/users/#{@user.slug}"
