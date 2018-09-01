@@ -1,7 +1,7 @@
 <!-- /users/:id or users/:slug -->
 
 <%if logged_in? && authorized_user?%>
-  <h1>Welcome Back <%=@user.username%> !</h1>
+  <h1>Welcome <%=@user.username%> !</h1>
   <h2>Here are your charts: </h2>
 <%else%>
   <h2>These are <%=@user.username%>'s charts: </h2>
