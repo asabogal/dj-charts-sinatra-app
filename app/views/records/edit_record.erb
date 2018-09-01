@@ -13,3 +13,10 @@
   <input type="submit" value="Edit Record">
 
 </form>
+
+<br>
+
+<form action="/records/<%=@record.id%>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Record">
+</form>
