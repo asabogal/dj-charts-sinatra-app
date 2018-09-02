@@ -5,11 +5,13 @@ class User < ActiveRecord::Base
   has_many :records, through: :charts, source: :records
 
   validates :username, presence: true
+  validates :username, uniqueness: true
   validates :email, presence: true
+  validates :email, uniqueness: true
   validates :password, presence: true
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def slug
     self.username.gsub(" ","-").downcase
