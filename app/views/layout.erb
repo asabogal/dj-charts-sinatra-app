@@ -18,7 +18,7 @@
 
     <div class="wrapper">
 
-      <nav>
+      <nav class="nav">
 
        <% if logged_in? %>
 
@@ -41,8 +41,15 @@
 
 
        <% else %>
-         <a href="/signup">Sign Up</a>
+         <a href="/signup">Sign Up</a> |
          <a href="/login"> Log In </a>
+         <span class="navigationSpace"/>
+         <a href="/charts"> View All User Charts </a>
+         <span class="navigationSpace"/>
+         <a href="/users"> User Index </a>
+         <span class="navigationSpace"/>
+         <a href="/records"> Record Index </a>
+         <span class="navigationSpace"/>
        <%end %>
 
      </nav>
