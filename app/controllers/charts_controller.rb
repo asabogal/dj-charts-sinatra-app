@@ -44,6 +44,7 @@ class ChartsController < ApplicationController
         @chart = Chart.create(params[:chart])
         @chart.update(user_id: current_user.id)
         @record = Record.create(params[:record])
+
         @record.update(chart_id: @chart.id)
         @record.save
         @chart.save
