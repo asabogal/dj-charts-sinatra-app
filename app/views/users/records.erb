@@ -2,7 +2,8 @@
 
 <div class="wrapper">
   <%current_user.records.each do |record|%>
-  <%=record.artist%> - <%=record.title%> (<%=record.label%>)<br>
-   <%=record.rating%> stars | apears on: <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong>
+  <em> <%=record.artist%> - <%=record.title%> (<%=record.label%>)</em><br>
+   Rating: <%=record.rating%> | apears on: <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong>
   <br></br>
+
   <%end%>
