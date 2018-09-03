@@ -2,9 +2,10 @@
 <h1>Records Index:</h1>
 <div class="wrapper">
 <%@records.each do |record|%>
-  <%=record.artist%> - <%=record.title%> (<%=record.label%>) |
-   <p> <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong> </p>
-  <br>
+  <%=record.artist%> - <%=record.title%> (<%=record.label%>)<br>
+   <%=record.rating%> stars | apears on: <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong>
+
+  <br></br>
 
 <%end%>
 </div>
