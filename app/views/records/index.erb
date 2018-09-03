@@ -1,8 +1,10 @@
 
-<h1>Top Charted Records:</h1>
+<h1>Records Index:</h1>
 <div class="wrapper">
 <%@records.each do |record|%>
-  <h4><%=record.artist%> - <%=record.title%></h4><br>
+  <h2><%=record.artist%> - <%=record.title%></h2>
+  appears on: <p> <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong> </p>
+  <br>
 
 <%end%>
 </div>
