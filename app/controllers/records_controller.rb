@@ -45,15 +45,15 @@ class RecordsController < ApplicationController
     if logged_in? && current_user
         if params[:title] == "" || params[:artist] == "" || params[:label] == ""
           flash[:notice] = "Please fill in all fields"
-          redirect "/records/#{current_user.slug}"
+          redirect back
         elsif params.include?(:chartid)
           @chart = Chart.find_by_id(params[:chartid])
-          @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label])
+          @record = Record.create(params[:record])
           @record.update(chart_id: @chart.id)
           @record.save
           redirect "/charts/#{@chart.slug}"
         else
-          @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label])
+          @record = Record.create(params[:record])
           redirect "/records"
         end
     else
@@ -67,7 +67,7 @@ class RecordsController < ApplicationController
       if logged_in? && current_user
         @record = Record.find_by_id(params[:id])
         @chart = Chart.find_by_id(@record.chart_id)
-          if @chart.user == current_user && @record.update(title: params[:record][:title], artist: params[:record][:artist], label: params[:record][:label])
+          if @chart.user == current_user && @record.update(params[:record])
             @record.save
             redirect "/charts/#{@chart.slug}"
           else
