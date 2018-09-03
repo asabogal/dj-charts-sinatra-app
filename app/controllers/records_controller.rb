@@ -48,16 +48,16 @@ class RecordsController < ApplicationController
           redirect back
         elsif params.include?(:chartid)
           @chart = Chart.find_by_id(params[:chartid])
-          @record = Record.create(params[:record])
+          @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label], rating: params[:rating])
           @record.update(chart_id: @chart.id)
           @record.save
           redirect "/charts/#{@chart.slug}"
         else
-          @record = Record.create(params[:record])
+          @record = Record.createcreate(title: params[:title], artist: params[:artist], label: params[:label], rating: params[:rating])
           redirect "/records"
         end
     else
-      #flash message
+      flash[:notice] = "Please log in to do that."
       redirect "/login"
     end
   end
