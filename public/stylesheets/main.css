@@ -13,7 +13,7 @@
 
   /* --- Welcome Page Styles --- */
   body {
-    background-color: #E8F2FF;
+    background-color: #2222;
     color: #555;
     font-family: Sans-Serif;
     line-height: 18px;
@@ -32,7 +32,7 @@
 
   .nav {
     font-size: 1em;
-    background: #ddd;
+    background: #E9E9E9;
     margin: 10px auto;
     max-width: 960px;
     padding: 1%; /18px / 800px
@@ -145,14 +145,44 @@
 
 .big_button {
     margin: 0 20px 20px;
-    padding: 10px;
+    padding: 5px;
     float: left;
     width: auto;
-    height: 42px;
+    height: 35px;
     border:4px solid #555;
     font-size: 1em;
-    background-color: #bbb;
+    background-color: #E9E9E9;
+}
 
+.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 29px;
+   overflow: hidden;
+   width: 240px;
+   font-size: 30px;
+   border:4px solid #555;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 30px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 268px;
+}
+
+.styled-select.slate {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 34px;
+   width: 240px;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   font-size: 30px;
+   height: 34px;
+   width: 268px;
 }
 
 span.navigationSpace {
@@ -162,7 +192,14 @@ span.navigationSpace {
 
 /* Rack Flash */
 .warning {
-  color: red;
+  font-size: 1.5em;
+  margin: 10px auto;
+  max-width: 960px;
+  padding: 1%; /18px / 800px
+  width: 95%;
+  background: #EFDFDE;
+  color: #9E4A46;
+
 }
 
 /* --- Table Styles --- */
