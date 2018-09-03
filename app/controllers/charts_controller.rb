@@ -46,7 +46,7 @@ class ChartsController < ApplicationController
         @record = Record.create(params[:record])
         @record.update(chart_id: @chart.id)
         @record.save
-        @chart.savex
+        @chart.save
         redirect "/users/#{current_user.slug}/charts"
       end
     else
