@@ -17,6 +17,14 @@
   <br></br>
   Record Label: <input type="text" name="record[label]" value="">
   <br></br>
+  Rating: <select class="" name="record[rating]">
+
+        <% [1,2,3,4,5].each do |num| %>
+        <option value="<%=num%>"><%=num%></option>
+          <% end %>
+        </select>
+  <br></br>
+
   <input type="submit" value="Create Chart">
 
 </form>

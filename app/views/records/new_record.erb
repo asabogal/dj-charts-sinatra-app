@@ -10,6 +10,14 @@
   <br></br>
   Record Label: <input type="text" name="label" value="">
   <br></br>
+  Rating: <select class="" name="rating">
+
+        <% [1,2,3,4,5].each do |num| %>
+        <option value="<%=num%>"><%=num%></option>
+          <% end %>
+          </select>
+  <br></br>
+
   <input type="hidden" name="chartid" value="<%=@chart.id%>">
   <input type="submit" value="Create Record">
 

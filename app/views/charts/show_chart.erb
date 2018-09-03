@@ -14,6 +14,7 @@
         <th>Title</th>
         <th>Artist</th>
         <th>Label</th>
+        <th>Rating</th>
         <% if logged_in? && @chart.user_id == current_user.id%>
         <th>Edit</th>
         <th>Delete</th>
@@ -24,6 +25,8 @@
         <td><%= record.title %></td>
         <td><%= record.artist %></td>
         <td><%= record.label %></td>
+        <td><%= record.rating %></td>
+
         <% if logged_in? && @chart.user_id == current_user.id%>
         <td> <form action="/records/<%=record.id%>/edit" method="GET">
           <input type="submit" value="Edit Record">
