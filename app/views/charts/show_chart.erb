@@ -5,43 +5,51 @@
 <h1><%=@chart.name%></h1>
 <h2>by <%=@chart.user.username%> </h2>
 
-<%@chart.records.each_with_index do |record, i|%>
+<table id="table">
+  <col style="width:5%">
+	<col style="width:20%">
+	<col style="width:20%">
+  <col style="width:20%">
+  <col style="width:5%">
+  <col style="width:8%">
+  <col style="width:8%">
 
+  <tr>
+    <th >#</th>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Label</th>
+    <th>Rating</th>
+    <% if logged_in? && @chart.user_id == current_user.id%>
+    <th>Edit</th>
+    <th>Delete</th>
+    <%end%>
+  </tr>
+  <%@chart.records.each_with_index do |record, i|%>
+  <tr>
+    <td><%=i+1%></td>
+    <td><%= record.title.titleize %></td>
+    <td><%= record.artist.titleize %></td>
+    <td><%= record.label.titleize %></td>
+    <td><%= record.rating %></td>
 
-    <table id="table">
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Artist</th>
-        <th>Label</th>
-        <th>Rating</th>
-        <% if logged_in? && @chart.user_id == current_user.id%>
-        <th>Edit</th>
-        <th>Delete</th>
-        <%end%>
-      </tr>
-      <tr>
-        <td><%=i+1%></td>
-        <td><%= record.title %></td>
-        <td><%= record.artist %></td>
-        <td><%= record.label %></td>
-        <td><%= record.rating %></td>
-
-        <% if logged_in? && @chart.user_id == current_user.id%>
-        <td> <form action="/records/<%=record.id%>/edit" method="GET">
-          <input type="submit" value="Edit Record">
-        </form>
-        </td>
-        <td> <form action="/records/<%=record.id%>/delete" method="POST">
-          <input id="hidden" type="hidden" name="_method" value="delete">
-          <input type="submit" value="Delete Record">
-        </form>
-        </td>
-        <%end%>
-        </tr>
-      <table>
+    <% if logged_in? && @chart.user_id == current_user.id%>
+    <td> <form action="/records/<%=record.id%>/edit" method="GET">
+      <input type="submit" value="Edit Record">
+    </form>
+    </td>
+    <td> <form action="/records/<%=record.id%>/delete" method="POST">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete Record">
+    </form>
+    </td>
+    <%end%>
+    </tr>
     <%end%>
 
+</table>
+
+<br>
 
 
 <%if logged_in? && @chart.user == current_user%>
