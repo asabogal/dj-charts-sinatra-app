@@ -29,6 +29,20 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/users/:slug/records' do
+    @user = User.find_by_slug(params[:slug])
+    if logged_in?
+      if authorized_user?
+        erb :"/users/records"
+      else
+        redirect "/users/#{@user.slug}"
+      end
+    else
+      flash[:notice] = "Please log in to do that"
+      redirect "/login"
+    end
+  end
+
 
   get '/signup' do
     if logged_in?
