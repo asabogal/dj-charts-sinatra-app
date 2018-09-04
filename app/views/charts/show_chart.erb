@@ -53,7 +53,7 @@
 
 
 <%if logged_in? && @chart.user == current_user%>
-<form action="/charts/<%=@chart.slug%>/edit" method="get">
+<form action="/charts/<%=@chart.id%>/<%=@chart.slug%>/edit" method="get">
 <input class="big_button" type="submit" value="Edit Chart Details">
 </form>
 <%end%>
@@ -66,7 +66,7 @@
 <%end%>
 
 <%if logged_in? && @chart.user == current_user%>
-<form action="/charts/<%=@chart.slug%>/delete" method="post">
+<form action="/charts/<%=@chart.id%>/<%=@chart.slug%>/delete" method="post">
     <input id="hidden" type="hidden" name="_method" value="delete">
   <input class="big_button" type="submit" value="Delete Chart">
 </form>

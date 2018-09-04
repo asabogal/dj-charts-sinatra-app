@@ -14,9 +14,9 @@ class ChartsController < ApplicationController
     end
   end
 
-  get '/charts/:slug/edit' do
+  get '/charts/:id/:slug/edit' do
     if logged_in? && current_user
-        @chart = Chart.find_by_slug(params[:slug])
+        @chart = Chart.find_by_id(params[:id])
           if @chart.user == current_user
             erb :"/charts/edit_chart"
           else
@@ -29,9 +29,9 @@ class ChartsController < ApplicationController
     end
   end
 
-  get '/charts/:slug' do
-    @chart = Chart.find_by_slug(params[:slug])
-    erb :"charts/show_chart"
+  get '/charts/:id/:slug' do
+    @chart = Chart.find_by_id(params[:id])
+      erb :"charts/show_chart"
   end
 
 
@@ -82,9 +82,9 @@ class ChartsController < ApplicationController
         end
       end
 
-    delete '/charts/:slug/delete' do
+    delete '/charts/:id/:slug/delete' do
       if logged_in?
-        @chart = Chart.find_by_slug(params[:slug])
+        @chart = Chart.find_by_id(params[:id])
         if @chart && @chart.user == current_user
           @chart.delete
           flash[:notice] = "Chart successfully deleted"

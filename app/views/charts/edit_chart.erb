@@ -3,7 +3,7 @@
 
 <h1>Edit Chart:</h1>
 
-<form action="/charts/<%=@chart.slug%>" method="POST">
+<form action="/charts/<%=@chart.id%>/<%=@chart.slug%>" method="POST">
 <input type="hidden" name="_method" value="PATCH">
 
   Chart Name: <input type="text" name="chart[name]" value="">
