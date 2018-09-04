@@ -54,11 +54,11 @@ class ChartsController < ApplicationController
     end
   end
 
-  patch '/charts/:slug' do
+  patch '/charts/:id/:slug' do
     if logged_in?
         if params[:chart][:name] == ""
           flash[:notice] = "Please fill in the Chart Name"
-          redirect "/charts/#{params[:slug]}/edit"
+          redirect "/charts/#{params[:id]}/#{params[:slug]}/edit"
         else
           @chart = Chart.find_by_slug(params[:slug])
             if @chart && @chart.user == current_user
@@ -68,10 +68,10 @@ class ChartsController < ApplicationController
                   @record.update(chart_id: @chart.id)
                   @record.save
                   @chart.save
-                  redirect "/charts/#{@chart.slug}"
+                  redirect "/charts/#{@chart.id}/#{@chart.slug}"
                 else
                   flash[:notice] = "Something went wrong, please try again."
-                  redirect "/charts/#{@chart.slug}/edit"
+                  redirect "/charts/#{@chart.id}/#{@chart.slug}/edit"
                 end
             else
               flash[:notice] = "You dont have permission to do that"
@@ -86,6 +86,7 @@ class ChartsController < ApplicationController
       if logged_in?
         @chart = Chart.find_by_id(params[:id])
         if @chart && @chart.user == current_user
+          @chart.delete_records
           @chart.delete
           flash[:notice] = "Chart successfully deleted"
           redirect "/users/#{current_user.slug}/charts"

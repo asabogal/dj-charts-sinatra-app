@@ -1,3 +1,5 @@
+
+require 'pry'
 class Chart < ActiveRecord::Base
   belongs_to :user
   has_many :records
@@ -6,6 +8,12 @@ class Chart < ActiveRecord::Base
 
   before_create do
     self.created_on = created_on.to_date
+  end
+
+  def delete_records
+    self.records.each do |record|
+      record.delete
+    end
   end
 
   def slug
