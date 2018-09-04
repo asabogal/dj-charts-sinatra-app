@@ -62,20 +62,19 @@ class UsersController < ApplicationController
 
   post '/signup' do
     @user = User.new(params)
-    if @user.valid? && !User.find_by(username: params[:username], email: params[:email])
+    if !@user.valid?
+      flash[:notice] = "#{@user.errors.full_messages.join(", ")}, please try again."
+      redirect "/signup"
+    elsif @user.valid? && !User.find_by(username: params[:username], email: params[:email])
       @user.save
       login!
       redirect "/users/#{@user.slug}"
     elsif User.find_by(username: params[:username], email: params[:email])
       flash[:notice] = "You already have an account. Please log in to access your profile."
       redirect "/login"
-    elsif !@user.valid?
-      flash[:notice] = "Please fill in all fields"
-      redirect "/signup"
     else
-      flash[:notice] = "#{@user.errors.full_messages.join(", ")}."
+      flash[:notice] = "En error ocurred, please try again."
       redirect "/signup"
-
     end
   end
 
