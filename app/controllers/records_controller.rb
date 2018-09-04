@@ -51,7 +51,7 @@ class RecordsController < ApplicationController
           @record = Record.create(title: params[:title], artist: params[:artist], label: params[:label], rating: params[:rating])
           @record.update(chart_id: @chart.id)
           @record.save
-          redirect "/charts/#{@chart.slug}"
+          redirect "/charts/#{@chart.id}/#{@chart.slug}"
         else
           @record = Record.createcreate(title: params[:title], artist: params[:artist], label: params[:label], rating: params[:rating])
           redirect "/records"
@@ -69,7 +69,7 @@ class RecordsController < ApplicationController
         @chart = Chart.find_by_id(@record.chart_id)
           if @chart.user == current_user && @record.update(params[:record])
             @record.save
-            redirect "/charts/#{@chart.slug}"
+            redirect "/charts/#{@chart.id}/#{@chart.slug}"
           else
             flash[:notice] = "Please fill in all fields"
             redirect "/records/#{@record.id}/edit"
@@ -87,7 +87,7 @@ class RecordsController < ApplicationController
           if @chart.user == current_user
             @record.delete
             flash[:notice] = "Record successfully deleted"
-            redirect "/charts/#{@chart.slug}"
+            redirect "/charts/#{@chart.id}/#{@chart.slug}"
           else
             flash[:notice] = "You dont have permission to do that"
             redirect  "/user/#{current_user.slug}"

@@ -3,7 +3,7 @@
 <div class="wrapper">
 <%@records.each do |record|%>
 <em> <%=record.artist%> - <%=record.title%> (<%=record.label%>)</em><br>
-   Rating: <%=record.rating%> | apears on: <strong> <a href="/charts/<%=record.chart.slug%>"> <%=record.chart.name%> </a> </strong>
+   Rating: <%=record.rating%> | apears on: <strong> <a href="/charts/<%=record.chart_id%>/<%=record.slug%>"> <%=record.chart.name%> </a> </strong>
 
   <br></br>
 
