@@ -85,8 +85,8 @@ class UsersController < ApplicationController
       login!
       redirect "/users/#{@user.slug}"
     else !@user
-      flash[:notice] = "No such user. Please try again."
-      redirect "/login"
+      flash[:notice] = "No such user. Please sign up!"
+      redirect "/signup"
     end
   end
 
