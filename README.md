@@ -1,8 +1,8 @@
 
-#DJ Charts a Sinatra Application
+## DJ Charts a Sinatra Application
 
 
-#Introduction
+# Introduction
 
 This is a CRUD (Create, Read, Update and Delete) web app with a back-end built in Sinatra as my second project for the Flatiron School, Web Developer program.
 
@@ -11,21 +11,21 @@ The app is designed for users (a.k.a DJ's or record collectors) keep track of an
 Visitors do not need to be logged in to view the chart and record database, however, a user must be logged in and authenticated in order to edit and/or delete his/her chart/records. Also a logged in user can only add or edit their own content. For user authentication, username and password validators were created with a combination of Ruby and RegEx.
 
 
-#Installation and Usage
+# Installation and Usage
 
 Github repository of the project: https://github.com/asabogal/dj-charts-sinatra-app
 
 After cloning the repository:
 
-$ bundle install
+`$ bundle install`
 
 Run migrations:
 
-$ rake db:migrate
+`$ rake db:migrate`
 
 Host on local server:
 
-$ shotgun
+`$ shotgun`
 
 ## Contributing
 
