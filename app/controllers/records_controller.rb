@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
 
     get '/records/:id/edit' do
-      if logged_in? && current_user
+        redirect_if_not_logged_in
         @record = Record.find_by_id(params[:id])
         @chart = Chart.find_by_id(@record.chart_id)
           if @chart.user == current_user
@@ -10,10 +10,6 @@ class RecordsController < ApplicationController
             flash[:notice] = "You can only edit records from your charts!"
             redirect "/users/#{current_user.slug}/charts"
           end
-        else
-          flash[:notice] = "Please log in to do that."
-          redirect "/login"
-        end
       end
 
     get '/records/new' do
@@ -64,7 +60,7 @@ class RecordsController < ApplicationController
 
 
     patch '/records/:id' do
-      if logged_in? && current_user
+      redirect_if_not_logged_in
         @record = Record.find_by_id(params[:id])
         @chart = Chart.find_by_id(@record.chart_id)
           if @chart.user == current_user && @record.update(params[:record])
@@ -74,10 +70,6 @@ class RecordsController < ApplicationController
             flash[:notice] = "Please fill in all fields"
             redirect "/records/#{@record.id}/edit"
           end
-        else
-          flash[:notice] = "Please log in to do that"
-          redirect "/login"
-      end
     end
 
     delete '/records/:id/delete' do

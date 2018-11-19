@@ -40,6 +40,13 @@ class ApplicationController < Sinatra::Base
       @user == current_user
     end
 
+    def redirect_if_not_logged_in
+      if !logged_in?
+      flash[:notice] = "Please log in to do that"
+      redirect "/login"
+      end
+    end
+
   end
 
 end
